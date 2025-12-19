@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Заметки студента</title>
+    <style>
+        /* Базовые стили страницы */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background-color: #fdf2f8; /* нежный розовый фон */
+            color: #3f3d56;
+        }
+
+        .page {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 24px 16px 40px;
+        }
+
+        header {
+            margin-bottom: 24px;
+        }
+
+        .title {
+            font-size: 28px;
+            font-weight: 700;
+            margin: 0 0 4px;
+            color: #4b164c;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: #9f7bb5;
+            margin: 0;
+        }
+
+        /* Карточка-обёртка */
+        .card {
+            background-color: #ffffff;
+            border-radius: 18px;
+            padding: 20px 20px 24px;
+            box-shadow: 0 10px 25px rgba(148, 27, 121, 0.1);
+            border: 1px solid #f9a8d4;
+        }
+
+        /* Блок добавления заметки */
+        .add-note {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .add-note-text {
+            font-size: 14px;
+            color: #6b4b7a;
+        }
+
+        .btn {
+            padding: 9px 18px;
+            border-radius: 999px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            background-color: #f472b6; /* розовая кнопка */
+            color: #ffffff;
+            transition: transform 0.08s ease, box-shadow 0.08s ease, background-color 0.1s ease;
+        }
+
+        .btn:hover {
+            background-color: #ec4899;
+            box-shadow: 0 4px 12px rgba(236, 72, 153, 0.5);
+            transform: translateY(-1px);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+            box-shadow: none;
+        }
+
+        /* Список заметок */
+        .notes-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .note-card {
+            border-radius: 14px;
+            border: 1px solid #f9a8d4;
+            padding: 12px 14px;
+            background: linear-gradient(135deg, #fdf2f8, #ffffff);
+        }
+
+        .note-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 6px;
+            gap: 8px;
+        }
+
+        .note-title {
+            font-size: 15px;
+            font-weight: 600;
+            margin: 0;
+            color: #4b164c;
+        }
+
+        .note-date {
+            font-size: 12px;
+            color: #9f7bb5;
+        }
+
+        .note-text {
+            font-size: 14px;
+            margin: 0;
+            color: #6b4b7a;
+        }
+
+        .note-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .delete-btn {
+            background: #fbcfe8;
+            border: 1px solid #f472b6;
+            color: #4b164c;
+            width: 22px;
+            height: 22px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            padding: 0;
+            line-height: 1;
+            transition: background 0.12s, transform 0.1s;
+        }
+
+        .delete-btn:hover {
+            background: #f9a8d4;
+            transform: scale(1.08);
+        }
+
+        .delete-btn:active {
+            transform: scale(1);
+        }
+
+        footer {
+            margin-top: 24px;
+            font-size: 12px;
+            color: #9f7bb5;
+            text-align: right;
+        }
+
+        @media (max-width: 640px) {
+            .add-note {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <header>
+            <h1 class="title">Заметки студента</h1>
+            <p class="subtitle">Учебное веб-приложение для управления заметками</p>
+        </header>
+
+        <main>
+            <section class="card">
+                <div class="add-note">
+                    <div>
+                        <div class="add-note-text">
+                            Управление заметками: добавление новых записей и просмотр уже созданных.
+                        </div>
+                    </div>
+                    <button class="btn" id="addNoteBtn">+ Добавить заметку</button>
+                </div>
+
+                <div class="notes-list" id="notesList">
+                    <article class="note-card">
+                        <div class="note-header">
+                            <h2 class="note-title">Подготовка к коллоквиуму</h2>
+                            <div class="note-actions">
+                                <span class="note-date">10.11.2025</span>
+                                <button class="delete-btn">✕</button>
+                            </div>
+                        </div>
+                        <p class="note-text">
+                            Повторить основные темы по базам данных и методологиям разработки. Запланировать время на решение задач.
+                        </p>
+                    </article>
+
+                    <article class="note-card">
+                        <div class="note-header">
+                            <h2 class="note-title">Курсовой проект</h2>
+                            <div class="note-actions">
+                                <span class="note-date">12.11.2025</span>
+                                <button class="delete-btn">✕</button>
+                            </div>
+                        </div>
+                        <p class="note-text">
+                            Обновить дорожную карту, оформить отчёт по спринтам, подготовить примеры применения Scrum и Kanban.
+                        </p>
+                    </article>
+
+                    <article class="note-card">
+                        <div class="note-header">
+                            <h2 class="note-title">Список дел на неделю</h2>
+                            <div class="note-actions">
+                                <span class="note-date">14.11.2025</span>
+                                <button class="delete-btn">✕</button>
+                            </div>
+                        </div>
+                        <p class="note-text">
+                            Проверить текст курсовой, добавить рисунки с досками задач, скорректировать выводы и оформить выводы по методологиям.
+                        </p>
+                    </article>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            Заметки студента · учебный проект
+        </footer>
+    </div>
+
+    <script>
+        const addBtn = document.getElementById('addNoteBtn');
+        const notesList = document.getElementById('notesList');
+
+        function formatDate(date) {
+            const d = String(date.getDate()).padStart(2, '0');
+            const m = String(date.getMonth() + 1).padStart(2, '0');
+            const y = date.getFullYear();
+            return `${d}.${m}.${y}`;
+        }
+
+        // Добавление новой заметки
+        addBtn.addEventListener('click', () => {
+            const title = prompt('Введите заголовок заметки:');
+            if (!title) return;
+
+            const text = prompt('Введите текст заметки:');
+            if (!text) return;
+
+            const now = new Date();
+            const dateStr = formatDate(now);
+
+            const article = document.createElement('article');
+            article.className = 'note-card';
+
+            article.innerHTML = `
+                <div class="note-header">
+                    <h2 class="note-title">${title}</h2>
+                    <div class="note-actions">
+                        <span class="note-date">${dateStr}</span>
+                        <button class="delete-btn">✕</button>
+                    </div>
+                </div>
+                <p class="note-text">${text}</p>
+            `;
+
+            // Добавляем новую заметку в начало списка
+            notesList.insertBefore(article, notesList.firstChild);
+        });
+
+        // Удаление заметок (делегирование события)
+        notesList.addEventListener('click', function (event) {
+            if (event.target.classList.contains('delete-btn')) {
+                const note = event.target.closest('.note-card');
+                const title = note.querySelector('.note-title').textContent;
+                if (confirm(`Удалить заметку "${title}"?`)) {
+                    note.remove();
+                }
+            }
+        });
+    </script>
+</body>
+</html>
